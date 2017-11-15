@@ -1,7 +1,7 @@
 class QuantumRegister extends Matrix {
-	
-	public QuantumRegister(int n){
-		super(n,1);
+
+	public QuantumRegister(int numberOfQubits){
+		super((int)Math.pow(2,numberOfQubits),1);
 	}
 
     public void Set(int state, Complex value){

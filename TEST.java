@@ -324,7 +324,7 @@ class TEST {
 
 		//test 22
 		System.out.println("   test 22: Constructing Quantum Register as extension of Matrix class.");
-		QuantumRegister t22qregist = new QuantumRegister(2);
+		QuantumRegister t22qregist = new QuantumRegister(1);
 		t22qregist.Set(0,0,new Complex(4.0f, 34.0f)); //setter with row and column
 		t22qregist.Set(1,new Complex(17.0f, 8.0f));	  //setter only with row	
 		//for (int i=0; i<=1; i++){ //uncomment for debug
@@ -334,7 +334,84 @@ class TEST {
 			PASSED();
 		else{
 			NOTPASSED();
-			errorCounter++;}						
+			errorCounter++;}					
+
+		//test 23
+		System.out.println("   test 23: Testing utility class BinaryFormOfState which contains table with binary form of all states.");
+		System.out.println("            Checking state  6 for 5 qubits. Expecting result: [00110] (qubit number zero is last).");
+		System.out.println("            Checking state 19 for 5 qubits. Expecting result: [10011] (qubit number zero is last).");
+		BinaryFormOfState test23binaryform = new BinaryFormOfState(5);
+		//test23binaryform.PrintResults(); //uncomment for debug
+		if(test23binaryform.QubitIsOneInState(0,6)==false & test23binaryform.QubitIsOneInState(1,6)==true & test23binaryform.QubitIsOneInState(2,6)==true & test23binaryform.QubitIsOneInState(3,6)==false & test23binaryform.QubitIsOneInState(4,6)==false & 
+		   test23binaryform.QubitIsOneInState(0,19)==true & test23binaryform.QubitIsOneInState(1,19)==true & test23binaryform.QubitIsOneInState(2,19)==false & test23binaryform.QubitIsOneInState(3,19)==false & test23binaryform.QubitIsOneInState(4,19)==true)
+			PASSED();
+		else{
+			NOTPASSED();
+			errorCounter++;}		
+
+		//test 24
+		System.out.println("   test 24: Using Pauli X quantum gate for one qubit circuit.");
+		QuantumGate t24qgate = new QuantumGate(1);
+		t24qgate.PauliX(0,0);
+		t24qgate.PauliX(0,1);
+		//for (int i=0; i<=1; i++){ //uncomment for debug
+		//System.out.print("["+i+"]"); //uncomment for debug 
+			//for (int j=0; j<=1; j++){ //uncomment for debug
+				//System.out.print(" "+(int)t24qgate.Get(i,j).GetRe());} //uncomment for debug 
+			//System.out.println(" ");} //uncomment for debug 
+		if(t24qgate.Get(0,0).GetRe()==0.0f & t24qgate.Get(0,1).GetRe()==1.0f & t24qgate.Get(1,0).GetRe()==1.0f & t24qgate.Get(1,1).GetRe()==0.0f)
+			PASSED();
+		else{
+			NOTPASSED();
+			errorCounter++;}				
+			
+		//test 25
+		System.out.println("   test 25: Using Pauli X quantum gate for 3 qubits circuit. Gate is on the qubit in the middle.");
+		QuantumGate t25qgate = new QuantumGate(3);
+		for (int q=0; q<=7; q++){
+		t25qgate.PauliX(1,q);
+		}
+		//for (int i=0; i<=7; i++){ //uncomment for debug
+			//System.out.print("["+i+"]"); //uncomment for debug 
+			//for (int j=0; j<=7; j++){ //uncomment for debug
+				//System.out.print(" "+(int)t25qgate.Get(i,j).GetRe());}//uncomment for debug
+			//System.out.println(" ");} //uncomment for debug 
+		if(t25qgate.Get(0,2).GetRe()==1.0f & t25qgate.Get(2,0).GetRe()==1.0f & t25qgate.Get(3,1).GetRe()==1.0f & t25qgate.Get(1,3).GetRe()==1.0f &
+		   t25qgate.Get(4,6).GetRe()==1.0f & t25qgate.Get(6,4).GetRe()==1.0f & t25qgate.Get(5,7).GetRe()==1.0f & t25qgate.Get(7,5).GetRe()==1.0f)
+			PASSED();
+		else{
+			NOTPASSED();
+			errorCounter++;}				
+	
+		//test 26
+		System.out.println("   test 26: Creating and calculating Quantum Circuit for one qubit and with Pauli X gate.");
+		QuantumCircuit t26qcirc = new QuantumCircuit(1);
+		t26qcirc.AddGate(0,0,1); //(targetqubit,step,gateId)
+		/*t26qcirc.Calculate();
+		if(t26qcirc.GetResult(0).GetRe()==1.0f & t26qcirc.GetResult(0).GetIm()==0.0f)
+			PASSED();
+		else{
+			NOTPASSED();
+			errorCounter++;}		*/	
+
+		//SPECIAL TEST OF EFFICIENCY - uncomment below to proceed
+/*      
+		int specialTestNumberOfQubits = 10;
+		int repeat = 25;	
+		System.out.println("   ***SPECIAL EFFICIENCY TEST***");
+		System.out.println("   *** starting test for "+specialTestNumberOfQubits+" qubits and repeating "+repeat+" times.");	
+		QuantumGate sptqgate = new QuantumGate(specialTestNumberOfQubits);
+		for(int r=1; r<=repeat; r++){
+		sptqgate.IdentityMatrix();
+		for (int q=0; q<=(int)Math.pow(2,specialTestNumberOfQubits)-1; q++){
+		sptqgate.PauliX(1,q);
+		//System.out.println("   ***working*** "+q);		
+		}
+		System.out.println("   *** repeating " + r);
+		}
+		System.out.println("   *** done ");
+		System.out.println(" "); 
+*/
 	
 	if(errorCounter==0)
 		System.out.println("\nGreat work!");
