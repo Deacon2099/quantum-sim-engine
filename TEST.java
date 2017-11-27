@@ -214,9 +214,7 @@ class TEST {
 		t17matrix.Set(3,1,new Complex(4.0f, 34.0f));
 		t17matrix.Set(5,1,new Complex(17.0f, 8.0f));		
 		t17matrix.SwitchRow(3,5);
-		//for (int i=0; i<=5; i++){ //uncomment for debug
-			//for (int j=0; j<=6; j++){ //uncomment for debug
-			//	System.out.println("["+i+","+j+"]:"+t17matrix.Get(i,j).ToString());}} //uncomment for debug 
+		//t17matrix.DebugPrintMatrixDetailsComplexValues(); //uncomment for debug
 		if(t17matrix.Get(3,1).GetRe()==17.0f & t17matrix.Get(3,1).GetIm()==8.0f & t17matrix.Get(5,1).GetRe()==4.0f & t17matrix.Get(5,1).GetIm()==34.0f)
 			PASSED();
 		else{
@@ -238,9 +236,7 @@ class TEST {
 		t18Bmatrix.Set(1,0,new Complex(9.0f, 10.0f));
 		t18Bmatrix.Set(1,1,new Complex(11.0f, 12.0f));
 		t18Amatrix = t18Amatrix.Add(t18Bmatrix);
-		//for (int i=0; i<=1; i++){ //uncomment for debug
-			//for (int j=0; j<=1; j++){ //uncomment for debug
-				//System.out.println("["+i+","+j+"]:"+t18Amatrix.Get(i,j).ToString());}} //uncomment for debug 
+		//t18Amatrix.DebugPrintMatrixDetailsComplexValues(); //uncomment for debug
 		if(t18Amatrix.Get(0,0).GetRe()==6.0f & t18Amatrix.Get(0,0).GetIm()==8.0f & t18Amatrix.Get(0,1).GetRe()==10.0f & t18Amatrix.Get(0,1).GetIm()==12.0f & t18Amatrix.Get(1,0).GetRe()==14.0f & t18Amatrix.Get(1,0).GetIm()==16.0f & t18Amatrix.Get(1,1).GetRe()==18.0f & t18Amatrix.Get(1,1).GetIm()==20.0f)
 			PASSED();
 		else{
@@ -262,9 +258,7 @@ class TEST {
 		t19Bmatrix.Set(1,0,new Complex(9.0f, 10.0f));
 		t19Bmatrix.Set(1,1,new Complex(11.0f, 12.0f));
 		t19Amatrix = t19Amatrix.Substract(t19Bmatrix);
-		//for (int i=0; i<=1; i++){ //uncomment for debug
-			//for (int j=0; j<=1; j++){ //uncomment for debug
-				//System.out.println("["+i+","+j+"]:"+t19Amatrix.Get(i,j).ToString());}} //uncomment for debug 
+		//t19Amatrix.DebugPrintMatrixDetailsComplexValues(); //uncomment for debug
 		if(t19Amatrix.Get(0,0).GetRe()==-4.0f & t19Amatrix.Get(0,0).GetIm()==-4.0f & t19Amatrix.Get(0,1).GetRe()==-4.0f & t19Amatrix.Get(0,1).GetIm()==-4.0f & t19Amatrix.Get(1,0).GetRe()==-4.0f & t19Amatrix.Get(1,0).GetIm()==-4.0f & t19Amatrix.Get(1,1).GetRe()==-4.0f & t19Amatrix.Get(1,1).GetIm()==-4.0f)
 			PASSED();
 		else{
@@ -285,10 +279,8 @@ class TEST {
 		t20Bmatrix.Set(0,1,new Complex(7.0f, 8.0f));
 		t20Bmatrix.Set(1,0,new Complex(9.0f, 10.0f));
 		t20Bmatrix.Set(1,1,new Complex(11.0f, 12.0f));
-		t20Amatrix = t20Amatrix.MultiplyBy(t20Bmatrix);
-		//for (int i=0; i<=1; i++){ //uncomment for debug
-			//for (int j=0; j<=1; j++){ //uncomment for debug
-				//System.out.println("["+i+","+j+"]:"+t20Amatrix.Get(i,j).ToString());}} //uncomment for debug 
+		t20Amatrix = t20Amatrix.MultiplyBy(t20Bmatrix); 
+		//t20Amatrix.DebugPrintMatrixDetailsComplexValues(); //uncomment for debug
 		if(t20Amatrix.Get(0,0).GetRe()==-20.0f & t20Amatrix.Get(0,0).GetIm()==82.0f & t20Amatrix.Get(0,1).GetRe()==-24.0f & t20Amatrix.Get(0,1).GetIm()==102.0f & t20Amatrix.Get(1,0).GetRe()==-28.0f & t20Amatrix.Get(1,0).GetIm()==202.0f & t20Amatrix.Get(1,1).GetRe()==-32.0f & t20Amatrix.Get(1,1).GetIm()==254.0f)
 			PASSED();
 		else{
@@ -313,9 +305,7 @@ class TEST {
 		t21Bmatrix.Set(1,0,new Complex(7.0f, 8.0f));
 		t21Bmatrix.Set(2,0,new Complex(9.0f, 10.0f));
 		t21resultmatrix = t21Amatrix.MultiplyBy(t21Bmatrix);
-		//for (int i=0; i<=1; i++){ //uncomment for debug
-			//for (int j=0; j<=0; j++){ //uncomment for debug
-				//System.out.println("["+i+","+j+"]:"+t21resultmatrix.Get(i,j).ToString());}} //uncomment for debug 
+		//t21resultmatrix.DebugPrintMatrixDetailsComplexValues(); //uncomment for debug
 		if(t21resultmatrix.Get(0,0).GetRe()==-33.0f & t21resultmatrix.Get(0,0).GetIm()==172.0f & t21resultmatrix.Get(1,0).GetRe()==-45.0f & t21resultmatrix.Get(1,0).GetIm()==352.0f)
 			PASSED();
 		else{
@@ -327,9 +317,7 @@ class TEST {
 		QuantumRegister t22qregist = new QuantumRegister(1);
 		t22qregist.Set(0,0,new Complex(4.0f, 34.0f)); //setter with row and column
 		t22qregist.Set(1,new Complex(17.0f, 8.0f));	  //setter only with row	
-		//for (int i=0; i<=1; i++){ //uncomment for debug
-			//for (int j=0; j<=0; j++){ //uncomment for debug
-				//System.out.println("["+i+","+j+"]:"+t22qregist.Get(i,j).ToString());}} //uncomment for debug 
+		//t22qregist.DebugPrintMatrixDetailsComplexValues(); //uncomment for debug
 		if(t22qregist.Get(0,0).GetRe()==4.0f & t22qregist.Get(0,0).GetIm()==34.0f & t22qregist.Get(1,0).GetRe()==17.0f & t22qregist.Get(1,0).GetIm()==8.0f)
 			PASSED();
 		else{
@@ -354,11 +342,7 @@ class TEST {
 		QuantumGate t24qgate = new QuantumGate(1);
 		t24qgate.PauliX(0,0);
 		t24qgate.PauliX(0,1);
-		//for (int i=0; i<=1; i++){ //uncomment for debug
-		//System.out.print("["+i+"]"); //uncomment for debug 
-			//for (int j=0; j<=1; j++){ //uncomment for debug
-				//System.out.print(" "+(int)t24qgate.Get(i,j).GetRe());} //uncomment for debug 
-			//System.out.println(" ");} //uncomment for debug 
+		//t24qgate.DebugPrintMatrixDetailsOnlyRealValues();//uncomment for debug		
 		if(t24qgate.Get(0,0).GetRe()==0.0f & t24qgate.Get(0,1).GetRe()==1.0f & t24qgate.Get(1,0).GetRe()==1.0f & t24qgate.Get(1,1).GetRe()==0.0f)
 			PASSED();
 		else{
@@ -371,11 +355,7 @@ class TEST {
 		for (int q=0; q<=7; q++){
 		t25qgate.PauliX(1,q);
 		}
-		//for (int i=0; i<=7; i++){ //uncomment for debug
-			//System.out.print("["+i+"]"); //uncomment for debug 
-			//for (int j=0; j<=7; j++){ //uncomment for debug
-				//System.out.print(" "+(int)t25qgate.Get(i,j).GetRe());}//uncomment for debug
-			//System.out.println(" ");} //uncomment for debug 
+		//t25qgate.DebugPrintMatrixDetailsOnlyRealValues();//uncomment for debug
 		if(t25qgate.Get(0,2).GetRe()==1.0f & t25qgate.Get(2,0).GetRe()==1.0f & t25qgate.Get(3,1).GetRe()==1.0f & t25qgate.Get(1,3).GetRe()==1.0f &
 		   t25qgate.Get(4,6).GetRe()==1.0f & t25qgate.Get(6,4).GetRe()==1.0f & t25qgate.Get(5,7).GetRe()==1.0f & t25qgate.Get(7,5).GetRe()==1.0f)
 			PASSED();
@@ -387,12 +367,20 @@ class TEST {
 		System.out.println("   test 26: Creating and calculating Quantum Circuit for one qubit and with Pauli X gate.");
 		QuantumCircuit t26qcirc = new QuantumCircuit(1);
 		t26qcirc.AddGate(0,0,1); //(targetqubit,step,gateId)
-		/*t26qcirc.Calculate();
-		if(t26qcirc.GetResult(0).GetRe()==1.0f & t26qcirc.GetResult(0).GetIm()==0.0f)
+		//System.out.println("Initial Register:"); //uncomment for debug
+		//t26qcirc.initialRegister.DebugPrintMatrixDetailsOnlyRealValues();//uncomment for debug	
+		//System.out.println("Quantum Gate before Calculate:"); //uncomment for debug	
+		//t26qcirc.circuitGates.DebugPrintMatrixDetailsOnlyRealValues();		
+		t26qcirc.Calculate();
+		//System.out.println("Quantum Gate after Calculate:"); //uncomment for debug		
+		//t26qcirc.circuitGates.DebugPrintMatrixDetailsOnlyRealValues();//uncomment for debug	
+		//System.out.println("Final Register:"); //uncomment for debug		
+		//t26qcirc.finalRegister.DebugPrintMatrixDetailsOnlyRealValues();//uncomment for debug	
+		if(t26qcirc.GetResult(0).GetRe()==0.0f & t26qcirc.GetResult(0).GetIm()==0.0f & t26qcirc.GetResult(1).GetRe()==1.0f & t26qcirc.GetResult(1).GetIm()==0.0f)
 			PASSED();
 		else{
 			NOTPASSED();
-			errorCounter++;}		*/	
+			errorCounter++;}		
 
 		//SPECIAL TEST OF EFFICIENCY - uncomment below to proceed
 /*      
@@ -419,11 +407,11 @@ class TEST {
 		System.out.println("\nFound "+errorCounter+" errors.");
 	}
 	catch(ArrayIndexOutOfBoundsException e){
-		System.out.println("Nie ma elementu");
+		System.out.println("Element not found");
 		System.exit(-1);
 	}
 	catch(Exception e){
-		System.out.println("Jakiś błąd!");
+		System.out.println("Other error");
 		System.exit(-1);
 	}
 	}

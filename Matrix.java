@@ -108,4 +108,24 @@ class Matrix {
 		innerArray[row][column]=value;
 	}
 	
+	public void DebugPrintMatrixDetailsOnlyRealValues(){
+		for (int i=0; i<totalRows; i++){
+			System.out.print("["+i+"]"); 
+			for (int j=0; j<totalColumns; j++){
+				System.out.print(" "+(int)this.Get(i,j).GetRe());
+			}
+			System.out.println(" ");
+		} 
+	}
+	
+	public void DebugPrintMatrixDetailsComplexValues(){
+		for (int i=0; i<totalRows; i++){
+			System.out.print("["+i+"]"); 
+			for (int j=0; j<totalColumns; j++){
+			System.out.print(" ["+this.Get(i,j).ToString()+"]");
+			}
+			System.out.println(" ");
+		} 
+	}
+	
 }
