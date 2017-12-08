@@ -6,57 +6,51 @@ class QuantumCircuit {
 	public QuantumGate circuitGates;  //debug: change to private later
 	public QuantumRegister finalRegister; //debug: change to private later
 	private BinaryFormOfState binaryForm;
-	private int numberOfQubitsForThisInstance;
-	private int numberOfStates;
+	private int totalQubits;
+	private int totalStates;
 	private int stepLimit=100;
 
 
-	public QuantumCircuit(int numberOfQubits){
-		numberOfQubitsForThisInstance = numberOfQubits;
-		numberOfStates=(int)Math.pow(2,numberOfQubits);
-		circuitSchematic = new int [numberOfQubitsForThisInstance+1][stepLimit];
-		for(int i=0; i<=(numberOfQubitsForThisInstance); i++){
-			for(int j=0; j<=stepLimit-1; j++){
-				circuitSchematic[i][j]=0;
-			}
-		}
-		initialRegister = new QuantumRegister(numberOfQubitsForThisInstance);
-		circuitGates = new QuantumGate(numberOfQubitsForThisInstance);
-		finalRegister = new QuantumRegister(numberOfQubitsForThisInstance);
-		binaryForm = new BinaryFormOfState(numberOfQubitsForThisInstance);
+	public QuantumCircuit(int givenTotalQubits){
+		ConstructQuantumCircuitWithInitialStateZero(givenTotalQubits);
 	}
 
-	public QuantumCircuit(int numberOfQubits, int initialState){
-		numberOfQubitsForThisInstance = numberOfQubits;
-		numberOfStates=(int)Math.pow(2,numberOfQubits);
-		circuitSchematic = new int [numberOfQubitsForThisInstance+1][stepLimit];
-		for(int i=0; i<=(numberOfQubitsForThisInstance); i++){
+	public QuantumCircuit(int givenTotalQubits, int initialState){
+		ConstructQuantumCircuitWithInitialStateZero(givenTotalQubits);
+		initialRegister.Set(0,new Complex (0.0f));		
+		initialRegister.Set(initialState,new Complex (1.0f));
+	}
+	
+	private void ConstructQuantumCircuitWithInitialStateZero(int givenTotalQubits){
+		totalQubits = givenTotalQubits;
+		totalStates=(int)Math.pow(2,givenTotalQubits);
+		circuitSchematic = new int [totalQubits+1][stepLimit];
+		for(int i=0; i<=(totalQubits); i++){
 			for(int j=0; j<=stepLimit-1; j++){
 				circuitSchematic[i][j]=0;
 			}
 		}
-		initialRegister = new QuantumRegister(numberOfQubitsForThisInstance);
-		initialRegister.Set(initialState,new Complex (1.0f));
-		circuitGates = new QuantumGate(numberOfQubitsForThisInstance);
-		finalRegister = new QuantumRegister(numberOfQubitsForThisInstance);
-		binaryForm = new BinaryFormOfState(numberOfQubitsForThisInstance);
+		initialRegister = new QuantumRegister(totalQubits);
+		circuitGates = new QuantumGate(totalQubits);
+		finalRegister = new QuantumRegister(totalQubits);
+		binaryForm = new BinaryFormOfState(totalQubits);		
 	}
 
 	public void AddGate (int targetQubit, int stepNumber, int gateID){
 		circuitSchematic[targetQubit][stepNumber]=gateID;	
 		int controlSum=0;
-		for(int i=0;i<=numberOfQubitsForThisInstance-1;i++){
+		for(int i=0;i<=totalQubits-1;i++){
 			controlSum+=circuitSchematic[i][stepNumber];
 		}
-		circuitSchematic[numberOfQubitsForThisInstance][stepNumber]=controlSum;
+		circuitSchematic[totalQubits][stepNumber]=controlSum;
 	}
 	
 	public void Calculate (){
 		for (int step=0;step<stepLimit;step++){
-			if(circuitSchematic[numberOfQubitsForThisInstance][step]>0){
-				for(int qubit=0;qubit<numberOfQubitsForThisInstance;qubit++){
+			if(circuitSchematic[totalQubits][step]>0){
+				for(int qubit=0;qubit<totalQubits;qubit++){
 					if(circuitSchematic[qubit][step]==1){
-						for(int state=0;state<numberOfStates;state++){
+						for(int state=0;state<totalStates;state++){
 						circuitGates.PauliX(qubit,state);
 						}
 					}

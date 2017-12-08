@@ -381,10 +381,20 @@ class TEST {
 		else{
 			NOTPASSED();
 			errorCounter++;}		
+			
+		//test 27
+		System.out.println("   test 27: Creating only Quantum Circuit for three qubits with initial state 5. Checking if initial register has correct state.");
+		QuantumCircuit t27qcirc = new QuantumCircuit(3,5);
+	    //t27qcirc.initialRegister.DebugPrintMatrixDetailsOnlyRealValues();//uncomment for debug
+		if(t27qcirc.initialRegister.Get(0,0).GetRe()==0.0f & t27qcirc.initialRegister.Get(0,0).GetIm()==0.0f & t27qcirc.initialRegister.Get(5,0).GetRe()==1.0f & t27qcirc.initialRegister.Get(5,0).GetIm()==0.0f)
+			PASSED();
+		else{
+			NOTPASSED();
+			errorCounter++;}		
 
 		//SPECIAL TEST OF EFFICIENCY - uncomment below to proceed
-/*      
-		int specialTestNumberOfQubits = 10;
+     
+	/*	int specialTestNumberOfQubits = 10;
 		int repeat = 25;	
 		System.out.println("   ***SPECIAL EFFICIENCY TEST***");
 		System.out.println("   *** starting test for "+specialTestNumberOfQubits+" qubits and repeating "+repeat+" times.");	
@@ -393,13 +403,13 @@ class TEST {
 		sptqgate.IdentityMatrix();
 		for (int q=0; q<=(int)Math.pow(2,specialTestNumberOfQubits)-1; q++){
 		sptqgate.PauliX(1,q);
-		//System.out.println("   ***working*** "+q);		
+		System.out.println("   ***   changing state*** "+q);		
 		}
 		System.out.println("   *** repeating " + r);
 		}
 		System.out.println("   *** done ");
-		System.out.println(" "); 
-*/
+		System.out.println(" ");     */
+
 	
 	if(errorCounter==0)
 		System.out.println("\nGreat work!");

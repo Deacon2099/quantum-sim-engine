@@ -1,12 +1,12 @@
 class QuantumGate extends Matrix {
 	private BinaryFormOfState binaryForm;
-	private int numberOfQubitsForThisInstance;
+	private int totalQubits;
 	
-	public QuantumGate(int numberOfQubits){
-		super((int)Math.pow(2,numberOfQubits),(int)Math.pow(2,numberOfQubits));
-		binaryForm = new BinaryFormOfState(numberOfQubits);
+	public QuantumGate(int givenTotalQubits){
+		super((int)Math.pow(2,givenTotalQubits),(int)Math.pow(2,givenTotalQubits));
+		binaryForm = new BinaryFormOfState(givenTotalQubits);
 		this.IdentityMatrix();
-		numberOfQubitsForThisInstance = numberOfQubits;
+		totalQubits = givenTotalQubits;
 	}
 
 	public void PauliX (int targetQubit, int state){
@@ -15,7 +15,7 @@ class QuantumGate extends Matrix {
 	}
 	
 	public QuantumRegister MultiplyBy (QuantumRegister register){
-		QuantumRegister result = new QuantumRegister(numberOfQubitsForThisInstance);
+		QuantumRegister result = new QuantumRegister(totalQubits);
 		result.Set(0, 0, new Complex(0.0f));
 		try{
 			if (this.totalColumns != register.totalRows)
