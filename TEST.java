@@ -391,6 +391,44 @@ class TEST {
 		else{
 			NOTPASSED();
 			errorCounter++;}		
+			
+		//test 28
+		System.out.println("   test 28: Creating and calculating Quantum Circuit for one qubit and with Pauli Y gate.");
+		QuantumCircuit t28qcirc = new QuantumCircuit(1);
+		t28qcirc.AddGate(0,0,2); //(targetqubit,step,gateId)
+		//System.out.println("Initial Register:"); //uncomment for debug
+		//t28qcirc.initialRegister.DebugPrintMatrixDetailsComplexValues();//uncomment for debug	
+		//System.out.println("Quantum Gate before Calculate:"); //uncomment for debug	
+		//t28qcirc.circuitGates.DebugPrintMatrixDetailsComplexValues();	//uncomment for debug	
+		t28qcirc.Calculate();
+		//System.out.println("Quantum Gate after Calculate:"); //uncomment for debug		
+		//t28qcirc.circuitGates.DebugPrintMatrixDetailsComplexValues();//uncomment for debug	
+		//System.out.println("Final Register:"); //uncomment for debug		
+		//t28qcirc.finalRegister.DebugPrintMatrixDetailsComplexValues();//uncomment for debug	
+		if(t28qcirc.GetResult(0).GetRe()==0.0f & t28qcirc.GetResult(0).GetIm()==0.0f & t28qcirc.GetResult(1).GetRe()==0.0f & t28qcirc.GetResult(1).GetIm()==1.0f)
+			PASSED();
+		else{
+			NOTPASSED();
+			errorCounter++;}
+			
+		//test 29
+		System.out.println("   test 29: Creating and calculating Quantum Circuit for one qubit and with Pauli Z gate.");
+		QuantumCircuit t29qcirc = new QuantumCircuit(1,1);
+		t29qcirc.AddGate(0,0,3); //(targetqubit,step,gateId)
+		//System.out.println("Initial Register:"); //uncomment for debug
+		//t29qcirc.initialRegister.DebugPrintMatrixDetailsComplexValues();//uncomment for debug	
+		//System.out.println("Quantum Gate before Calculate:"); //uncomment for debug	
+		//t29qcirc.circuitGates.DebugPrintMatrixDetailsComplexValues();	//uncomment for debug	
+		t29qcirc.Calculate();
+		//System.out.println("Quantum Gate after Calculate:"); //uncomment for debug		
+		//t29qcirc.circuitGates.DebugPrintMatrixDetailsComplexValues();//uncomment for debug	
+		//System.out.println("Final Register:"); //uncomment for debug		
+		//t29qcirc.finalRegister.DebugPrintMatrixDetailsComplexValues();//uncomment for debug	
+		if(t29qcirc.GetResult(0).GetRe()==0.0f & t29qcirc.GetResult(0).GetIm()==0.0f & t29qcirc.GetResult(1).GetRe()==-1.0f & t29qcirc.GetResult(1).GetIm()==0.0f)
+			PASSED();
+		else{
+			NOTPASSED();
+			errorCounter++;}
 
 		//SPECIAL TEST OF EFFICIENCY - uncomment below to proceed
      

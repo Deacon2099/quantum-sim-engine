@@ -1,6 +1,9 @@
 class QuantumGate extends Matrix {
 	private BinaryFormOfState binaryForm;
 	private int totalQubits;
+	private Complex imUnit = new Complex(0,1);
+	private Complex minusOneReal = new Complex(-1,0);
+	
 	
 	public QuantumGate(int givenTotalQubits){
 		super((int)Math.pow(2,givenTotalQubits),(int)Math.pow(2,givenTotalQubits));
@@ -12,6 +15,26 @@ class QuantumGate extends Matrix {
 	public void PauliX (int targetQubit, int state){
 		if(binaryForm.QubitIsOneInState(targetQubit, state))
 		 SwitchRow(state,state-(int)Math.pow(2,targetQubit));
+	}
+
+	public void PauliY (int targetQubit, int state){
+		if(binaryForm.QubitIsOneInState(targetQubit, state)){
+			SwitchRow(state,state-(int)Math.pow(2,targetQubit));
+			for(int column=0; column<=this.totalColumns-1; column++){
+				Set(state, column, Get(state, column).MultiplyBy(imUnit));
+				Set(state-(int)Math.pow(2,targetQubit), column, Get(state-(int)Math.pow(2,targetQubit), column).MultiplyBy(imUnit.Negation()));
+			}
+		}
+		
+	}
+	
+	public void PauliZ (int targetQubit, int state){
+		if(binaryForm.QubitIsOneInState(targetQubit, state)){
+			for(int column=0; column<=this.totalColumns-1; column++){
+				Set(state, column, Get(state, column).MultiplyBy(minusOneReal));
+			}
+		}
+		
 	}
 	
 	public QuantumRegister MultiplyBy (QuantumRegister register){
@@ -37,5 +60,5 @@ class QuantumGate extends Matrix {
 		}
 		return result;
 	}
-	
+
 }

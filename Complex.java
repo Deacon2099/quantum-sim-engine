@@ -74,9 +74,9 @@ class Complex {
 	
 	public String ToString(){
 		if(im>=0)
-			return re+"+"+im+"i";
+			return (re+0.0f)+"+"+(im+0.0f)+"i";
 		else
-			return re+""+im+"i";
+			return (re+0.0f)+""+(im+0.0f)+"i";
 	}
 	
 	public String ToPolarString(){

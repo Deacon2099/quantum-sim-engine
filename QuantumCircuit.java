@@ -54,6 +54,16 @@ class QuantumCircuit {
 						circuitGates.PauliX(qubit,state);
 						}
 					}
+					if(circuitSchematic[qubit][step]==2){
+						for(int state=0;state<totalStates;state++){
+						circuitGates.PauliY(qubit,state);
+						}
+					}
+					if(circuitSchematic[qubit][step]==3){
+						for(int state=0;state<totalStates;state++){
+						circuitGates.PauliZ(qubit,state);
+						}
+					}
 				}
 			}
 		}
