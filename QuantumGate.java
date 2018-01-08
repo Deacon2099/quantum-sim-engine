@@ -1,8 +1,9 @@
 class QuantumGate extends Matrix {
 	private BinaryFormOfState binaryForm;
 	private int totalQubits;
-	private Complex imUnit = new Complex(0,1);
-	private Complex minusOneReal = new Complex(-1,0);
+	private static final Complex imUnit = new Complex(0,1);
+	private static final Complex minusOneReal = new Complex(-1);
+	private static final Complex OneDividedBySqrtOfTwo = new Complex((float)(1/Math.sqrt(2)));
 	
 	
 	public QuantumGate(int givenTotalQubits){
@@ -36,6 +37,63 @@ class QuantumGate extends Matrix {
 		}
 		
 	}
+	
+	public void Hadamard (int targetQubit, int state){
+		Matrix hardCopyOfThisState = new Matrix(1,totalColumns);
+		int rowVariable=0;
+		int columnVariable=0;
+		for(int column=0; column<=this.totalColumns-1;column++){
+			hardCopyOfThisState.Set(0, column, this.Get(state,column));
+		}
+		for(int columnOfThisState=0; columnOfThisState<=this.totalColumns-1; columnOfThisState++){
+			this.Set(state, columnOfThisState, new Complex(0.0f));
+			if(binaryForm.QubitIsOneInState(targetQubit, columnOfThisState))
+				columnVariable=(int)Math.pow(2,targetQubit);
+			else
+				columnVariable=0;
+			for(int rowOfMultipliedGate=0; rowOfMultipliedGate<=this.totalRows-1; rowOfMultipliedGate++){
+				if(binaryForm.QubitIsOneInState(targetQubit, rowOfMultipliedGate))
+					rowVariable=(int)Math.pow(2,targetQubit);
+				else
+					rowVariable=0;
+				if((rowOfMultipliedGate-rowVariable)==(columnOfThisState-columnVariable)){
+					if(binaryForm.QubitIsOneInState(targetQubit, columnOfThisState) && binaryForm.QubitIsOneInState(targetQubit, rowOfMultipliedGate))
+						this.Set(state, columnOfThisState, this.Get(state, columnOfThisState).Add(hardCopyOfThisState.Get(0, rowOfMultipliedGate).MultiplyBy(OneDividedBySqrtOfTwo.Negation())));
+					else
+						this.Set(state, columnOfThisState, this.Get(state, columnOfThisState).Add(hardCopyOfThisState.Get(0, rowOfMultipliedGate).MultiplyBy(OneDividedBySqrtOfTwo)));
+				}
+			}
+		}
+	}
+	
+	public void SqrtNOT (int targetQubit, int state){
+		Matrix hardCopyOfThisState = new Matrix(1,totalColumns);
+		int rowVariable=0;
+		int columnVariable=0;
+		for(int column=0; column<=this.totalColumns-1;column++){
+			hardCopyOfThisState.Set(0, column, this.Get(state,column));
+		}
+		for(int columnOfThisState=0; columnOfThisState<=this.totalColumns-1; columnOfThisState++){
+			this.Set(state, columnOfThisState, new Complex(0.0f));
+			if(binaryForm.QubitIsOneInState(targetQubit, columnOfThisState))
+				columnVariable=(int)Math.pow(2,targetQubit);
+			else
+				columnVariable=0;
+			for(int rowOfMultipliedGate=0; rowOfMultipliedGate<=this.totalRows-1; rowOfMultipliedGate++){
+				if(binaryForm.QubitIsOneInState(targetQubit, rowOfMultipliedGate))
+					rowVariable=(int)Math.pow(2,targetQubit);
+				else
+					rowVariable=0;
+				if((rowOfMultipliedGate-rowVariable)==(columnOfThisState-columnVariable)){
+					if(binaryForm.QubitIsOneInState(targetQubit, columnOfThisState) && !binaryForm.QubitIsOneInState(targetQubit, rowOfMultipliedGate))
+						this.Set(state, columnOfThisState, this.Get(state, columnOfThisState).Add(hardCopyOfThisState.Get(0, rowOfMultipliedGate).MultiplyBy(OneDividedBySqrtOfTwo.Negation())));
+					else
+						this.Set(state, columnOfThisState, this.Get(state, columnOfThisState).Add(hardCopyOfThisState.Get(0, rowOfMultipliedGate).MultiplyBy(OneDividedBySqrtOfTwo)));
+				}
+			}
+		}
+	}
+	
 	
 	public QuantumRegister MultiplyBy (QuantumRegister register){
 		QuantumRegister result = new QuantumRegister(totalQubits);

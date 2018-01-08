@@ -429,7 +429,48 @@ class TEST {
 		else{
 			NOTPASSED();
 			errorCounter++;}
+			
+		//test 30
+		System.out.println("   test 30: Creating and calculating Quantum Circuit for one qubit and with Hadamard gate.");
+		QuantumCircuit t30qcirc = new QuantumCircuit(1,1);
+		t30qcirc.AddGate(0,0,4); //(targetqubit,step,gateId)
+		//System.out.println("Initial Register:"); //uncomment for debug
+		//t30qcirc.initialRegister.DebugPrintMatrixDetailsComplexValues();//uncomment for debug	
+		//System.out.println("Sqrt(2)= "+(float)(1/Math.sqrt(2)));// for debug
+		//System.out.println("Quantum Gate before Calculate:"); //uncomment for debug	
+		//t30qcirc.circuitGates.DebugPrintMatrixDetailsComplexValues();	//uncomment for debug	
+		t30qcirc.Calculate();
+		//System.out.println("Quantum Gate after Calculate:"); //uncomment for debug		
+		//t30qcirc.circuitGates.DebugPrintMatrixDetailsComplexValues();//uncomment for debug	
+		//System.out.println("Final Register:"); //uncomment for debug		
+		//t30qcirc.finalRegister.DebugPrintMatrixDetailsComplexValues();//uncomment for debug	
+		if(t30qcirc.circuitGates.Get(0,0).GetRe()==0.70710677f & t30qcirc.circuitGates.Get(1,0).GetRe()==0.70710677f & t30qcirc.circuitGates.Get(0,1).GetRe()==0.70710677f & t30qcirc.circuitGates.Get(1,1).GetRe()==-0.70710677f)
+			PASSED();
+		else{
+			NOTPASSED();
+			errorCounter++;}
 
+		//test 31
+		System.out.println("   test 31: Creating and calculating Quantum Circuit for one qubit and with SqrtNOT gate.");
+		QuantumCircuit t31qcirc = new QuantumCircuit(1,1);
+		t31qcirc.AddGate(0,0,5); //(targetqubit,step,gateId)
+		//System.out.println("Initial Register:"); //uncomment for debug
+		//t31qcirc.initialRegister.DebugPrintMatrixDetailsComplexValues();//uncomment for debug	
+		//System.out.println("Sqrt(2)= "+(float)(1/Math.sqrt(2)));// for debug
+		//System.out.println("Quantum Gate before Calculate:"); //uncomment for debug	
+		//t31qcirc.circuitGates.DebugPrintMatrixDetailsComplexValues();	//uncomment for debug	
+		t31qcirc.Calculate();
+		//System.out.println("Quantum Gate after Calculate:"); //uncomment for debug		
+		//t31qcirc.circuitGates.DebugPrintMatrixDetailsComplexValues();//uncomment for debug	
+		//System.out.println("Final Register:"); //uncomment for debug		
+		//t31qcirc.finalRegister.DebugPrintMatrixDetailsComplexValues();//uncomment for debug	
+		if(t31qcirc.circuitGates.Get(0,0).GetRe()==0.70710677f & t31qcirc.circuitGates.Get(1,0).GetRe()==0.70710677f & t31qcirc.circuitGates.Get(0,1).GetRe()==-0.70710677f & t31qcirc.circuitGates.Get(1,1).GetRe()==0.70710677f)
+			PASSED();
+		else{
+			NOTPASSED();
+			errorCounter++;}
+			
+			
 		//SPECIAL TEST OF EFFICIENCY - uncomment below to proceed
      
 	/*	int specialTestNumberOfQubits = 10;

@@ -64,6 +64,16 @@ class QuantumCircuit {
 						circuitGates.PauliZ(qubit,state);
 						}
 					}
+					if(circuitSchematic[qubit][step]==4){
+						for(int state=0;state<totalStates;state++){
+						circuitGates.Hadamard(qubit,state);
+						}
+					}
+					if(circuitSchematic[qubit][step]==5){
+						for(int state=0;state<totalStates;state++){
+						circuitGates.SqrtNOT(qubit,state);
+						}
+					}
 				}
 			}
 		}
