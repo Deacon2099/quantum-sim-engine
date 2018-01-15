@@ -18,7 +18,7 @@ class QuantumGate extends Matrix {
 		 SwitchRow(state,state-(int)Math.pow(2,targetQubit));
 	}
 
-	public void PauliY (int targetQubit, int state){
+/*	public void PauliY (int targetQubit, int state){
 		if(binaryForm.QubitIsOneInState(targetQubit, state)){
 			SwitchRow(state,state-(int)Math.pow(2,targetQubit));
 			for(int column=0; column<=this.totalColumns-1; column++){
@@ -27,15 +27,71 @@ class QuantumGate extends Matrix {
 			}
 		}
 		
+	}*/
+	
+	public void PauliY (int targetQubit, int state){
+		Matrix hardCopyOfThisState = new Matrix(1,totalColumns);
+		int rowVariable=0;
+		int columnVariable=0;
+		for(int column=0; column<=this.totalColumns-1;column++){
+			hardCopyOfThisState.Set(0, column, this.Get(state,column));
+		}
+		for(int columnOfThisState=0; columnOfThisState<=this.totalColumns-1; columnOfThisState++){
+			this.Set(state, columnOfThisState, new Complex(0.0f));
+			if(binaryForm.QubitIsOneInState(targetQubit, columnOfThisState))
+				columnVariable=(int)Math.pow(2,targetQubit);
+			else
+				columnVariable=0;
+			for(int rowOfMultipliedGate=0; rowOfMultipliedGate<=this.totalRows-1; rowOfMultipliedGate++){
+				if(binaryForm.QubitIsOneInState(targetQubit, rowOfMultipliedGate))
+					rowVariable=(int)Math.pow(2,targetQubit);
+				else
+					rowVariable=0;
+				if((rowOfMultipliedGate-rowVariable)==(columnOfThisState-columnVariable)){
+					if(binaryForm.QubitIsOneInState(targetQubit, columnOfThisState) && !binaryForm.QubitIsOneInState(targetQubit, rowOfMultipliedGate))
+						this.Set(state, columnOfThisState, this.Get(state, columnOfThisState).Add(hardCopyOfThisState.Get(0, rowOfMultipliedGate).MultiplyBy(imUnit.Negation())));
+					if(!binaryForm.QubitIsOneInState(targetQubit, columnOfThisState) && binaryForm.QubitIsOneInState(targetQubit, rowOfMultipliedGate))
+						this.Set(state, columnOfThisState, this.Get(state, columnOfThisState).Add(hardCopyOfThisState.Get(0, rowOfMultipliedGate).MultiplyBy(imUnit)));
+				}
+			}
+		}
 	}
 	
-	public void PauliZ (int targetQubit, int state){
+/*	public void PauliZ (int targetQubit, int state){
 		if(binaryForm.QubitIsOneInState(targetQubit, state)){
 			for(int column=0; column<=this.totalColumns-1; column++){
 				Set(state, column, Get(state, column).MultiplyBy(minusOneReal));
 			}
 		}
 		
+	}*/
+	
+	public void PauliZ (int targetQubit, int state){
+		Matrix hardCopyOfThisState = new Matrix(1,totalColumns);
+		int rowVariable=0;
+		int columnVariable=0;
+		for(int column=0; column<=this.totalColumns-1;column++){
+			hardCopyOfThisState.Set(0, column, this.Get(state,column));
+		}
+		for(int columnOfThisState=0; columnOfThisState<=this.totalColumns-1; columnOfThisState++){
+			this.Set(state, columnOfThisState, new Complex(0.0f));
+			if(binaryForm.QubitIsOneInState(targetQubit, columnOfThisState))
+				columnVariable=(int)Math.pow(2,targetQubit);
+			else
+				columnVariable=0;
+			for(int rowOfMultipliedGate=0; rowOfMultipliedGate<=this.totalRows-1; rowOfMultipliedGate++){
+				if(binaryForm.QubitIsOneInState(targetQubit, rowOfMultipliedGate))
+					rowVariable=(int)Math.pow(2,targetQubit);
+				else
+					rowVariable=0;
+				if((rowOfMultipliedGate-rowVariable)==(columnOfThisState-columnVariable)){
+					if(!binaryForm.QubitIsOneInState(targetQubit, columnOfThisState) && !binaryForm.QubitIsOneInState(targetQubit, rowOfMultipliedGate))
+						this.Set(state, columnOfThisState, this.Get(state, columnOfThisState).Add(hardCopyOfThisState.Get(0, rowOfMultipliedGate)));
+					if(binaryForm.QubitIsOneInState(targetQubit, columnOfThisState) && binaryForm.QubitIsOneInState(targetQubit, rowOfMultipliedGate))
+						this.Set(state, columnOfThisState, this.Get(state, columnOfThisState).Add(hardCopyOfThisState.Get(0, rowOfMultipliedGate).MultiplyBy(minusOneReal)));
+				}
+			}
+		}
 	}
 	
 	public void Hadamard (int targetQubit, int state){

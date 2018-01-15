@@ -432,7 +432,7 @@ class TEST {
 			
 		//test 30
 		System.out.println("   test 30: Creating and calculating Quantum Circuit for one qubit and with Hadamard gate.");
-		QuantumCircuit t30qcirc = new QuantumCircuit(1,1);
+		QuantumCircuit t30qcirc = new QuantumCircuit(2,1);
 		t30qcirc.AddGate(0,0,4); //(targetqubit,step,gateId)
 		//System.out.println("Initial Register:"); //uncomment for debug
 		//t30qcirc.initialRegister.DebugPrintMatrixDetailsComplexValues();//uncomment for debug	
@@ -456,7 +456,6 @@ class TEST {
 		t31qcirc.AddGate(0,0,5); //(targetqubit,step,gateId)
 		//System.out.println("Initial Register:"); //uncomment for debug
 		//t31qcirc.initialRegister.DebugPrintMatrixDetailsComplexValues();//uncomment for debug	
-		//System.out.println("Sqrt(2)= "+(float)(1/Math.sqrt(2)));// for debug
 		//System.out.println("Quantum Gate before Calculate:"); //uncomment for debug	
 		//t31qcirc.circuitGates.DebugPrintMatrixDetailsComplexValues();	//uncomment for debug	
 		t31qcirc.Calculate();
@@ -469,26 +468,49 @@ class TEST {
 		else{
 			NOTPASSED();
 			errorCounter++;}
+
+		//test 32
+		System.out.println("   test 32: Creating and calculating Quantum Circuit for one qubit and with two gates: Pauli Y and Hadamard.");
+		QuantumCircuit t32qcirc = new QuantumCircuit(1,1);
+		t32qcirc.AddGate(0,0,4); //(targetqubit,step,gateId)
+		t32qcirc.AddGate(0,1,2); //(targetqubit,step,gateId)
+		//System.out.println("Initial Register:"); //uncomment for debug
+		//t32qcirc.initialRegister.DebugPrintMatrixDetailsComplexValues();//uncomment for debug	
+		//System.out.println("Quantum Gate before Calculate:"); //uncomment for debug	
+		//t32qcirc.circuitGates.DebugPrintMatrixDetailsComplexValues();	//uncomment for debug	
+		t32qcirc.Calculate();
+		//System.out.println("Quantum Gate after Calculate:"); //uncomment for debug		
+		//t32qcirc.circuitGates.DebugPrintMatrixDetailsComplexValues();//uncomment for debug	
+		//System.out.println("Final Register:"); //uncomment for debug		
+		//t32qcirc.finalRegister.DebugPrintMatrixDetailsComplexValues();//uncomment for debug	
+		if(t32qcirc.circuitGates.Get(0,0).GetIm()==0.70710677f & t32qcirc.circuitGates.Get(1,0).GetIm()==-0.70710677f & t32qcirc.circuitGates.Get(0,1).GetIm()==-0.70710677f & t32qcirc.circuitGates.Get(1,1).GetIm()==-0.70710677f)
+			PASSED();
+		else{
+			NOTPASSED();
+			errorCounter++;}
 			
-			
+	/*		
 		//SPECIAL TEST OF EFFICIENCY - uncomment below to proceed
-     
-	/*	int specialTestNumberOfQubits = 10;
-		int repeat = 25;	
+		long spteststarttime;
+		long sptestelapsedtime;	
+		starttime=System.nanoTime();		
+		int specialTestNumberOfQubits = 7;
+		int repeat = 1;	
 		System.out.println("   ***SPECIAL EFFICIENCY TEST***");
 		System.out.println("   *** starting test for "+specialTestNumberOfQubits+" qubits and repeating "+repeat+" times.");	
 		QuantumGate sptqgate = new QuantumGate(specialTestNumberOfQubits);
 		for(int r=1; r<=repeat; r++){
 		sptqgate.IdentityMatrix();
 		for (int q=0; q<=(int)Math.pow(2,specialTestNumberOfQubits)-1; q++){
-		sptqgate.PauliX(1,q);
+		sptqgate.PauliZ(1,q);
 		System.out.println("   ***   changing state*** "+q);		
 		}
 		System.out.println("   *** repeating " + r);
 		}
 		System.out.println("   *** done ");
-		System.out.println(" ");     */
-
+		sptestelapsedtime= System.nanoTime()-spteststarttime;
+		System.out.println("Elapsed time: "+sptestelapsedtime/1000000+" miliseconds");     
+*/
 	
 	if(errorCounter==0)
 		System.out.println("\nGreat work!");
